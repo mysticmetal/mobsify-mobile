@@ -1,0 +1,96 @@
+<v-slide-x-transition>
+  <v-container>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <v-card>
+          <v-card-media :src="device.img" height="500px">
+            <v-layout column class="media">
+              <v-spacer></v-spacer>
+              <v-card-title class="white--text primary">
+                <v-layout row wrap>
+                  <v-flex xs6>
+                    <v-list dense two-line class="white" light avatar>
+                      <v-list-tile>
+                        <v-list-tile-avatar>
+                          <v-avatar class="primary">
+                            <v-icon :dark="!darkMode">memory</v-icon>
+                          </v-avatar>
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ device.quick_spec.ram_size }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ device.quick_spec.chipset }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-list dense two-line class="white" light avatar>
+                      <v-list-tile>
+                        <v-list-tile-avatar>
+                          <v-avatar class="primary">
+                            <v-icon :dark="!darkMode">battery_std</v-icon>
+                          </v-avatar>
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ device.quick_spec.battery_size }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ device.quick_spec.battery_type }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-list dense two-line class="white" light avatar>
+                      <v-list-tile>
+                        <v-list-tile-avatar>
+                          <v-avatar class="primary">
+                            <v-icon :dark="!darkMode">camera_alt</v-icon>
+                          </v-avatar>
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ device.quick_spec.camera_pixels }}</v-list-tile-title>
+                          <v-list-tile-sub-title>Camera</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-list dense two-line class="white" light avatar>
+                      <v-list-tile>
+                        <v-list-tile-avatar>
+                          <v-avatar class="primary">
+                            <v-icon :dark="!darkMode">videocam</v-icon>
+                          </v-avatar>
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ device.quick_spec.video_pixels }}</v-list-tile-title>
+                          <v-list-tile-sub-title>Video</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-flex>
+                </v-layout>
+              </v-card-title>
+            </v-layout>
+          </v-card-media>
+          <v-layout row wrap>
+            <v-flex
+              xs12
+            >
+              <v-list three-line subheader dense v-for="(spec, index) in device.spec_detail" :key="index" class="pt-3">
+                <v-subheader>{{ spec.category }}</v-subheader>
+                <v-list-tile avatar v-for="(detail, index) in spec.specs" :key="index">
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ detail.name }}</v-list-tile-title>
+                    <v-list-tile-sub-title v-html="$options.methods.toLocalCurrency(detail.name, detail.value)"></v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+              </v-list>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+</v-slide-x-transition>

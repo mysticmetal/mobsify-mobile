@@ -1,0 +1,45 @@
+<v-slide-x-transition>
+  <v-container>
+    <v-layout row>
+      <v-flex xs12>
+        <v-card>
+          <v-list two-line subheader>
+            <v-subheader>Display Settings</v-subheader>
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Dark Mode</v-list-tile-title>
+                <v-list-tile-sub-title>Turn On/Off App Dark Mode.</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-switch
+                  v-model="darkMode"
+                ></v-switch>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Contrasting App Bar</v-list-tile-title>
+                <v-list-tile-sub-title>Change Appbar Background to Primary.</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-switch
+                  v-model="contrastAppBar"
+                ></v-switch>
+              </v-list-tile-action>
+            </v-list-tile>
+          </v-list>
+        </v-card>
+        <v-card class="mt-3">
+          <v-subheader>Controls</v-subheader>
+          <v-flex xs12 class="pl-3">
+            <v-radio-group v-model="searchControl" row>
+              <v-radio label="Auto Trigger" value="auto" ></v-radio>
+              <v-radio label="Manual Trigger" value="button"></v-radio>
+            </v-radio-group>
+          </v-flex>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+</v-slide-x-transition>

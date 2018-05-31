@@ -1,0 +1,55 @@
+<div>
+  <v-toolbar app :class="{ 'primary': contrastAppBar }" v-if="!searchBox">
+    <v-btn :dark="contrastAppBar" flat icon :to=" { path: '/' } " v-if="pageTitle !== 'Mobsify'">
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
+    <v-toolbar-title :class="{ 'white--text': contrastAppBar }">{{ pageTitle }}</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn :dark="contrastAppBar" flat icon v-if="pageTitle === 'Mobsify'" @click.native="searchBox = !searchBox">
+      <v-icon>search</v-icon>
+    </v-btn>
+    <v-menu bottom left v-if="pageTitle === 'Mobsify'">
+      <v-btn slot="activator" icon :dark="contrastAppBar">
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+      <v-list>
+        <v-list-tile @click.native="$router.push('/settings')">
+          <v-list-tile-title>Settings</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click.native="$router.push('/about')">
+          <v-list-tile-title>About</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+  </v-toolbar>
+  <v-slide-y-transition v-else>
+    <v-toolbar app color="white">
+      <v-btn icon light @click.native="searchClose">
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-text-field
+        light
+        hide-details
+        single-line
+        label="Search by Phone Model"
+        v-model="search"
+      >
+        <v-progress-linear
+          slot="progress"
+          color="primary"
+          height="7"
+          indeterminate
+        ></v-progress-linear>
+      </v-text-field>
+      <v-btn
+        icon
+        dark
+        color="primary"
+        @click="apiCall(search)"
+        v-if="($store.getters.searchControl === 'button')"
+      >
+        <v-icon>search</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-slide-y-transition>
+</div>
