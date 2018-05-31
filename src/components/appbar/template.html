@@ -8,15 +8,21 @@
     <v-btn :dark="contrastAppBar" flat icon v-if="pageTitle === 'Mobsify'" @click.native="searchBox = !searchBox">
       <v-icon>search</v-icon>
     </v-btn>
-    <v-menu bottom left v-if="pageTitle === 'Mobsify'">
+    <v-menu v-if="pageTitle === 'Mobsify'">
       <v-btn slot="activator" icon :dark="contrastAppBar">
         <v-icon>more_vert</v-icon>
       </v-btn>
       <v-list>
         <v-list-tile @click.native="$router.push('/settings')">
+          <v-list-tile-avatar>
+            <v-icon>settings</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-title>Settings</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click.native="$router.push('/about')">
+          <v-list-tile-avatar>
+            <v-icon>info</v-icon>
+          </v-list-tile-avatar>
           <v-list-tile-title>About</v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -33,8 +39,12 @@
         single-line
         label="Search by Phone Model"
         v-model="search"
+        :loading="searchLoading"
+        :disabled="searching"
+        ref="searchInput"
       >
         <v-progress-linear
+          v-if="searchLoading"
           slot="progress"
           color="primary"
           height="7"
@@ -45,6 +55,7 @@
         icon
         dark
         color="primary"
+        :loading="searchBtnLoading"
         @click="apiCall(search)"
         v-if="($store.getters.searchControl === 'button')"
       >

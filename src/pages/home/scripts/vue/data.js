@@ -1,9 +1,6 @@
 export default () => ({
-  searchTimeOut: null,
-  search: null,
-  searchLoading: false,
-  searchBtnLoading: false,
   devices: [],
+  brands: [],
   hasNoResult: false,
   style: {
     width: '100%',
@@ -11,5 +8,6 @@ export default () => ({
     overflow: 'hidden',
     margin: '0 auto'
   },
-  searching: false
+  brandLoading: false,
+  page: 1
 })

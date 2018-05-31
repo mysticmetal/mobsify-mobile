@@ -3,7 +3,8 @@ const state = {
   ownDevice: null,
   pageTitle: 'Mobsify',
   networkState: true,
-  searchControl: 'auto'
+  searchControl: 'auto',
+  selectedBrand: null
 }
 
 const getters = {
@@ -11,7 +12,8 @@ const getters = {
   ownDevice: (state) => state.ownDevice,
   pageTitle: (state) => state.pageTitle,
   networkState: (state) => state.networkState,
-  searchControl: (state) => state.searchControl
+  searchControl: (state) => state.searchControl,
+  selectedBrand: (state) => state.selectedBrand
 }
 
 const mutations = {
@@ -29,6 +31,9 @@ const mutations = {
   },
   CHANGE_SEARCH_CONTROL: (state, payload) => {
     state.searchControl = payload
+  },
+  CHANGE_SELECTED_BRAND: (state, payload) => {
+    state.selectedBrand = payload
   }
 }
 

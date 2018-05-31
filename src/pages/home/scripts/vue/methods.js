@@ -1,12 +1,10 @@
+import EventBus from '@/utils/eventBus'
 import Api from '@/services/crawler'
 
 export default {
   async apicall (data) {
-    if (this.$store.getters.searchControl === 'button') {
-      this.searchBtnLoading = true
-    }
-    this.searching = true
-    this.$refs.searchInput.$el.blur()
+    this.devices = []
+    this.hasNoResult = false
     try {
       const success = await Api.search(data)
 
@@ -15,16 +13,12 @@ export default {
 
       if (success.data.length > 0) {
         this.devices = success.data
-        this.searchLoading = false
-        this.searchBtnLoading = false
-        this.searching = false
       } else {
         this.hasNoResult = true
-        this.searchLoading = false
-        this.searchBtnLoading = false
-        this.searching = false
       }
+      EventBus.$emit('FINISHED_SEARCHING')
     } catch (e) {
+      EventBus.$emit('FINISHED_SEARCHING')
       console.log('Error')
       console.log(e)
     }
@@ -38,7 +32,7 @@ export default {
 
       if (success.data) {
         this.$store.commit('CHANGE_SELECTED_DEVICE', success.data)
-        localStorage.setItem('own_device', JSON.stringify(success.data))
+        EventBus.$emit('CLOSE_SEARCH_BAR')
         if (this.$store.getters.selectedDevice) {
           this.$router.push('/view-device')
         }
@@ -46,6 +40,46 @@ export default {
     } catch (e) {
       console.log('Error')
       console.log(e)
+    }
+  },
+  async getAllBrands () {
+    this.brandLoading = true
+    const success = await Api.getBrands()
+
+    console.log('Success')
+    console.log(success)
+
+    if (success.data.length > 0) {
+      this.brands = success.data
+    }
+    this.brandLoading = false
+  },
+  async viewBrand (brand) {
+    console.log('Brand')
+    console.log(brand)
+
+    const success = await Api.getBrandPhones(brand.url)
+    console.log('Success')
+    console.log(success)
+
+    if (success.data) {
+      const phones = brand.devices
+      const pages = Math.ceil(phones / 40)
+      let baseURL = ''
+      if (success.data.next) {
+        const originalURL = success.data.next
+        baseURL = originalURL.split('-').slice(0, 5).join('-')
+      }
+      this.$store.commit('CHANGE_SELECTED_BRAND', {
+        name: brand.name,
+        phones: success.data.data,
+        totalItems: phones,
+        totalPages: pages,
+        baseURL
+      })
+      if (this.$store.getters.selectedBrand) {
+        this.$router.push('/view-brand')
+      }
     }
   }
 }

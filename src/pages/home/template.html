@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-card>
-          <v-card-text>
+          <!-- <v-card-text v-if="devices.length === 0">
             <v-layout row wrap>
               <v-flex xs12>
                 <v-list two-line subheader>
@@ -13,7 +13,7 @@
                        <v-list-tile-sub-title>See Information about this Device.</v-list-tile-sub-title>
                     </v-list-tile-content>
                      <v-list-tile-action>
-                       <v-btn dark icon>
+                       <v-btn :dark="darkMode" icon>
                          <v-icon>keyboard_arrow_right</v-icon>
                        </v-btn>
                      </v-list-tile-action>
@@ -21,45 +21,32 @@
                 </v-list>
               </v-flex>
             </v-layout>
+          </v-card-text> -->
+          <v-card-text v-if="devices.length === 0">
+            <v-subheader>All Brands</v-subheader>
+            <v-list dense>
+              <v-slide-y-reverse-transition v-if="brandLoading">
+                <v-list-tile>
+                  <v-list-tile-avatar>
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title>Loading...</v-list-tile-title>
+                    <v-list-tile-sub-title>Fetching all brand Informations.</v-list-tile-sub-title>
+                 </v-list-tile-content>
+                </v-list-tile>
+              </v-slide-y-reverse-transition>
+              <v-list-tile v-else v-for="(brand, index) in brands" :key="index" @click="viewBrand(brand)">
+                <v-list-tile-content>{{ brand.name }}</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ brand.devices }} Devices</v-list-tile-content>
+              </v-list-tile>
+            </v-list>
           </v-card-text>
-          <v-card-text>
-            <v-subheader>- OR -</v-subheader>
-          </v-card-text>
-          <v-card-text>
+          <v-card-text v-else>
             <v-layout row wrap>
-              <v-flex
-                :xs12="$store.getters.searchControl === 'auto'"
-                :xs10="$store.getters.searchControl === 'button'"
-              >
-                <v-text-field
-                    label="Search by Model Name"
-                    v-model="search"
-                    single-line
-                    :loading="searchLoading"
-                    :disabled="searching"
-                    ref="searchInput"
-                  >
-                    <v-progress-linear
-                      v-if="searchLoading"
-                      slot="progress"
-                      color="primary"
-                      height="7"
-                      indeterminate
-                    ></v-progress-linear>
-                  </v-text-field>
-              </v-flex>
-              <v-flex
-                xs2
-                v-if="$store.getters.searchControl === 'button'"
-                style="display:flex;align-items:center;justify-content:center;"
-              >
-                <v-btn dark icon color="primary" :loading="searchBtnLoading" @click="apicall(search)">
-                  <v-icon>search</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex xs12 v-if="devices.length > 0">
+              <v-flex xs12>
                 <v-list three-line subheader>
-                   <v-subheader>Results</v-subheader>
+                   <v-subheader>Search Results</v-subheader>
                    <v-list-tile v-for="(device, index) in devices" :key="index" @click="viewDevice(device)" avatar>
                      <v-list-tile-avatar>
                        <img :src="device.img">
@@ -69,13 +56,17 @@
                        <v-list-tile-sub-title v-html="device.description"></v-list-tile-sub-title>
                     </v-list-tile-content>
                      <v-list-tile-action>
-                       <v-btn dark icon color="primary">
+                       <v-btn :dark="darkMode" icon>
                          <v-icon>keyboard_arrow_right</v-icon>
                        </v-btn>
                      </v-list-tile-action>
                    </v-list-tile>
                 </v-list>
               </v-flex>
+            </v-layout>
+          </v-card-text>
+          <v-card-text>
+            <v-layout row>
               <v-flex xs12 v-show="hasNoResult">
                 <v-container fluid fill-height>
                    <v-layout align-center justify-center>

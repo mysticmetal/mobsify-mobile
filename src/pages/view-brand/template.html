@@ -1,0 +1,46 @@
+<v-slide-x-transition>
+  <v-container>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <v-card>
+          <v-list three-line>
+            <v-slide-y-reverse-transition v-if="pageFetching">
+              <v-list-tile>
+                <v-list-tile-avatar>
+                  <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                  <v-list-tile-title>Loading...</v-list-tile-title>
+                  <v-list-tile-sub-title>Fetching phones....</v-list-tile-sub-title>
+               </v-list-tile-content>
+              </v-list-tile>
+            </v-slide-y-reverse-transition>
+             <v-list-tile v-else v-for="(device, index) in devices" :key="index" @click="viewDevice(device)" avatar>
+               <v-list-tile-avatar>
+                 <img :src="device.img">
+               </v-list-tile-avatar>
+               <v-list-tile-content>
+                 <v-list-tile-title>{{ device.name }}</v-list-tile-title>
+                 <v-list-tile-sub-title v-html="device.description"></v-list-tile-sub-title>
+              </v-list-tile-content>
+               <v-list-tile-action>
+                 <v-btn :dark="darkMode" icon>
+                   <v-icon>keyboard_arrow_right</v-icon>
+                 </v-btn>
+               </v-list-tile-action>
+             </v-list-tile>
+          </v-list>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <v-footer fixed app class="pb-3">
+      <v-layout row>
+        <v-flex xs12>
+          <v-toolbar style="display:flex;align-items:center;justify-content:center;">
+            <v-pagination round :length="brand.totalPages" v-model="currentPage" :total-visible="5" @input="nextPage"></v-pagination>
+          </v-toolbar>
+        </v-flex>
+      </v-layout>
+    </v-footer>
+  </v-container>
+</v-slide-x-transition>
