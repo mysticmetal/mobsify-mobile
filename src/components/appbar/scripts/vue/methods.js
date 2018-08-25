@@ -2,7 +2,7 @@ import EventBus from '@/utils/eventBus'
 
 export default {
   apiCall (device) {
-    if (this.$store.getters.searchControl === 'button') {
+    if (this.searchControl === 'button') {
       this.searchBtnLoading = true
     }
     this.searching = true
@@ -13,6 +13,7 @@ export default {
     this.search = null
     this.searchBox = !this.searchBox
     this.clearLoadings()
+    EventBus.$emit('SEARCH_CLOSE_TRIGGERED')
   },
   clearLoadings () {
     this.searchLoading = false

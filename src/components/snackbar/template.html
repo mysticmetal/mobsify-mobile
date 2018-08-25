@@ -1,0 +1,10 @@
+<v-snackbar
+  :timeout="6000"
+  bottom
+  left
+  :color="snackbarTYPE"
+  v-model="snackbarSTATE"
+>
+  {{ snackbarMSG }}
+  <v-btn flat @click="closeSnackbar"><v-icon>cancel</v-icon></v-btn>
+</v-snackbar>

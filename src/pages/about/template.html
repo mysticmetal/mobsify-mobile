@@ -1,86 +1,43 @@
 <v-container>
-  <v-layout row wrap>
-    <v-flex xs12>
-      <v-card>
+  <v-layout
+    row
+    wrap
+  >
+    <v-flex
+      xs12
+    >
+      <v-card
+        v-for="(item, itemIndex) in items"
+        :key="itemIndex"
+      >
         <v-card-text>
-          <v-list two-line subheader>
-            <v-subheader>Resources Used</v-subheader>
-            <v-list-tile avatar @click="openUrl('https://cordova.apache.org/')">
+          <v-list
+            two-line
+            subheader
+            v-for="(list, listIndex) in item.lists"
+            :key="listIndex"
+          >
+            <v-subheader>{{ item.title }}</v-subheader>
+            <v-list-tile
+              avatar
+              @click="openUrl(list.link)"
+            >
               <v-list-tile-avatar>
-                <img src="../../assets/img/cordova.png">
+                <img
+                  :src="list.logo"
+                />
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title>Cordova</v-list-tile-title>
-                <v-list-tile-sub-title>A Hybrid Mobile Framework.</v-list-tile-sub-title>
+                <v-list-tile-title>{{ list.title }}</v-list-tile-title>
+                <v-list-tile-sub-title>{{ list.decription }}</v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
-                <v-btn dark icon ripple color="primary">
-                  <v-icon>keyboard_arrow_right</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-divider inset></v-divider>
-            <v-list-tile avatar @click="openUrl('https://vuejs.org/')">
-              <v-list-tile-avatar>
-                <img src="../../assets/img/vuejs.png">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>Vue JS</v-list-tile-title>
-                <v-list-tile-sub-title>A Javascript Framework.</v-list-tile-sub-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-btn dark icon ripple color="primary">
-                  <v-icon>keyboard_arrow_right</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-divider inset></v-divider>
-            <v-list-tile avatar @click="openUrl('https://vuetifyjs.com/en/')">
-              <v-list-tile-avatar>
-                <img src="../../assets/img/vuetify.png">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>Vuetify JS</v-list-tile-title>
-                <v-list-tile-sub-title>A Material UI Vuejs Framework.</v-list-tile-sub-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-btn dark icon ripple color="primary">
-                  <v-icon>keyboard_arrow_right</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-divider inset></v-divider>
-            <v-list-tile avatar @click="openUrl('https://www.lottiefiles.com/')">
-              <v-list-tile-avatar>
-                <img src="../../assets/img/lottie.gif">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>Lottie Files</v-list-tile-title>
-                <v-list-tile-sub-title>A JSON animation debot.</v-list-tile-sub-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-btn dark icon ripple color="primary">
-                  <v-icon>keyboard_arrow_right</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list>
-        </v-card-text>
-      </v-card>
-      <v-card>
-        <v-card-text>
-          <v-list two-line subheader>
-            <v-subheader>People</v-subheader>
-            <v-list-tile avatar @click="openUrl('https://www.linkedin.com/in/em-ji-madhu-8b007456/')">
-              <v-list-tile-avatar>
-                <img src="../../assets/img/batman.jpg">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>Batman</v-list-tile-title>
-                <v-list-tile-sub-title>Cross Browser Artist.</v-list-tile-sub-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-btn dark icon ripple color="primary">
+                <v-btn
+                  dark
+                  icon
+                  ripple
+                  color="primary"
+                >
                   <v-icon>keyboard_arrow_right</v-icon>
                 </v-btn>
               </v-list-tile-action>

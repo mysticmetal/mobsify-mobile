@@ -1,6 +1,6 @@
 export default {
   search (v) {
-    if (this.$store.getters.searchControl === 'auto') {
+    if (this.searchControl === 'auto') {
       if (v) {
         this.searchLoading = true
         if (this.searchTimeOut) {

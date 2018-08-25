@@ -1,4 +1,4 @@
-const files = require.context('.', false, /\.js$/)
+const files = require.context('./scripts/vue', false, /\.js$/)
 const modules = {}
 
 files.keys().forEach(key => {

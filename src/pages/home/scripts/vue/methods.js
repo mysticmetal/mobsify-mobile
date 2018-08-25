@@ -21,6 +21,11 @@ export default {
       EventBus.$emit('FINISHED_SEARCHING')
       console.log('Error')
       console.log(e)
+      this.$store.commit('TRIGGER_SNACKBAR', {
+        state: true,
+        type: 'error',
+        message: `There was some error when fetching ${data}.`
+      })
     }
   },
   async viewDevice (device) {
@@ -40,46 +45,79 @@ export default {
     } catch (e) {
       console.log('Error')
       console.log(e)
+      this.$store.commit('TRIGGER_SNACKBAR', {
+        state: true,
+        type: 'error',
+        message: `There was some error when getting Information about ${device.name}.`
+      })
     }
   },
   async getAllBrands () {
     this.brandLoading = true
-    const success = await Api.getBrands()
 
-    console.log('Success')
-    console.log(success)
+    try {
+      const success = await Api.getBrands()
 
-    if (success.data.length > 0) {
-      this.brands = success.data
+      console.log('Success')
+      console.log(success)
+
+      if (success.data.length > 0) {
+        this.brands = success.data
+      }
+    } catch (e) {
+      console.log('Error')
+      console.log(e)
+      this.$store.commit('TRIGGER_SNACKBAR', {
+        state: true,
+        type: 'error',
+        message: `Error when fetching all brands phones.`
+      })
+    } finally {
+      this.brandLoading = false
     }
-    this.brandLoading = false
   },
   async viewBrand (brand) {
     console.log('Brand')
     console.log(brand)
 
-    const success = await Api.getBrandPhones(brand.url)
-    console.log('Success')
-    console.log(success)
+    try {
+      const success = await Api.getBrandPhones(brand.url)
+      console.log('Success')
+      console.log(success)
 
-    if (success.data) {
-      const phones = brand.devices
-      const pages = Math.ceil(phones / 40)
-      let baseURL = ''
-      if (success.data.next) {
-        const originalURL = success.data.next
-        baseURL = originalURL.split('-').slice(0, 5).join('-')
+      if (success.data) {
+        const phones = brand.devices
+        const pages = Math.ceil(phones / 40)
+        let baseURL = ''
+        if (success.data.next) {
+          const originalURL = success.data.next
+          baseURL = originalURL.split('-').slice(0, 5).join('-')
+        }
+        this.$store.commit('CHANGE_SELECTED_BRAND', {
+          name: brand.name,
+          phones: success.data.data,
+          totalItems: phones,
+          totalPages: pages,
+          baseURL
+        })
+        if (this.$store.getters.selectedBrand) {
+          this.$router.push('/view-brand')
+        }
       }
-      this.$store.commit('CHANGE_SELECTED_BRAND', {
-        name: brand.name,
-        phones: success.data.data,
-        totalItems: phones,
-        totalPages: pages,
-        baseURL
+    } catch (e) {
+      console.log('Error')
+      console.log(e)
+      this.$store.commit('TRIGGER_SNACKBAR', {
+        state: true,
+        type: 'error',
+        message: `Error when fetching ${brand.name}'s Phones.`
       })
-      if (this.$store.getters.selectedBrand) {
-        this.$router.push('/view-brand')
-      }
+    }
+  },
+  searchCloseTriggered () {
+    if (this.hasNoResult) {
+      this.getAllBrands()
+      this.hasNoResult = false
     }
   }
 }

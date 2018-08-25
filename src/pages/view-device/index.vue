@@ -1,2 +1,2 @@
 <template lang="html" src="./template.html"></template>
-<script type="text/javascript" src="./scripts/vue"></script>
+<script type="text/javascript" src="./script"></script>
