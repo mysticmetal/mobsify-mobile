@@ -14,12 +14,12 @@
           <v-list
             two-line
             subheader
-            v-for="(list, listIndex) in item.lists"
-            :key="listIndex"
           >
             <v-subheader>{{ item.title }}</v-subheader>
             <v-list-tile
               avatar
+              v-for="(list, listIndex) in item.lists"
+              :key="listIndex"
               @click="openUrl(list.link)"
             >
               <v-list-tile-avatar>

@@ -5,7 +5,7 @@ import noDevice from '@/assets/animations/no_device.json'
 
 export default async function () {
   const self = this
-  EventBus.$on('SEARCH_TRIGGERED', (device) => self.apicall(device))
+  EventBus.$on('SEARCH_TRIGGERED', (device) => self.apicall(device, 'search'))
 
   lottie.loadAnimation({
     container: this.$refs.noDeviceContainer,

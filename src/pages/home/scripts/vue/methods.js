@@ -2,9 +2,17 @@ import EventBus from '@/utils/eventBus'
 import Api from '@/services/crawler'
 
 export default {
-  async apicall (data) {
+  async apicall (data, type) {
     this.devices = []
     this.hasNoResult = false
+
+    if (type) {
+      this.brandLoading = true
+      this.loading = {
+        title: 'Searching...',
+        subtitle: `Searching for ${data}.`
+      }
+    }
     try {
       const success = await Api.search(data)
 
@@ -26,6 +34,14 @@ export default {
         type: 'error',
         message: `There was some error when fetching ${data}.`
       })
+    } finally {
+      if (type) {
+        this.brandLoading = false
+        this.loading = {
+          title: 'Loading...',
+          subtitle: 'Fetching all brand Informations.'
+        }
+      }
     }
   },
   async viewDevice (device) {

@@ -82,6 +82,7 @@
         :disabled="searching"
         ref="searchInput"
         autofocus
+        @keyup.enter="apiCall(search)"
       >
         <v-progress-linear
           v-if="searchLoading"

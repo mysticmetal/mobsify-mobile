@@ -3,7 +3,7 @@ const state = {
   ownDevice: null,
   pageTitle: 'Mobsify',
   networkState: true,
-  searchControl: 'manual',
+  searchControl: 'button',
   selectedBrand: null
 }
 

@@ -81,7 +81,9 @@
                 <v-list-tile avatar v-for="(detail, index) in spec.specs" :key="index">
                   <v-list-tile-content>
                     <v-list-tile-title>{{ detail.name }}</v-list-tile-title>
-                    <v-list-tile-sub-title v-html="$options.methods.toLocalCurrency(detail.name, detail.value)"></v-list-tile-sub-title>
+                    <v-list-tile-sub-title>
+                      {{ detail.name.toLowerCase() === 'price' ? price : detail.value }}
+                    </v-list-tile-sub-title>
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
