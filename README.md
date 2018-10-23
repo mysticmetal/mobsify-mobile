@@ -1,49 +1,39 @@
-# mobsify
+  # Mobsify
 
-> A Vuetify project running in Cordova
+  Mobile Specification Viewing App.
 
-## Build Setup
+  ![alt](https://www.dropbox.com/s/op0qzct4rj9mvfd/5_Mobsify.png?raw=1)
 
-``` bash
-# install dependencies
-npm install
+  ### Screenshots
 
-# serve with hot reload at localhost:8080
-npm run dev
+  ![alt](https://www.dropbox.com/s/83idwdyv1d9fdfw/1_Mobsify.png?raw=1)
 
-# build for production with minification
-npm run build
+  ![alt](https://www.dropbox.com/s/4mgwxhab4xum72j/2_Mobsify.png?raw=1)
 
-# build for production and view the bundle analyzer report
-npm run build --report
+  ![alt](https://www.dropbox.com/s/yl3dxjyzaii311f/3_Mobsify.png?raw=1)
 
-# run unit tests
-npm run unit
+  ![alt](https://www.dropbox.com/s/wgif59lei5dg856/4_Mobsify.png?raw=1)
 
-# run e2e tests
-npm run e2e
+  ![alt](https://www.dropbox.com/s/wzz2h727zxixdsm/6_Mobsify.png?raw=1)
 
-# run all tests
-npm test
+  ![alt](https://www.dropbox.com/s/rch4maifhpj4wmd/7_Mobsify.png?raw=1)
 
-# build for production and cordova build.
-npm run cordova-build
+  ### Technology:
 
-# build for production and serve the app through the browser - no hot reload.
-npm run browser
+  1) VueJS
+  2) Cordova
 
-# add respective platforms
-cordova platform add android
-cordova platform add ios
+  ### Steps to run Locally
 
-# build for production and serve the app on an iOS device
-npm run ios
+  ``` bash
+  git clone https://github.com/batcode-studios/filesify-desktop.git
 
-# build for production and serve the app on an android device (won't serve on a virtual device)
-npm run android
+  # install dependencies
+  npm install
 
-# build for production and serve the app on an android device (will serve on a virtual device or physical device - prefers virtual)
-npm run android-vm
-```
+  # serve with hot reload at localhost:9080
+  npm run dev
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+  # build electron application for production
+  npm run build
+  ```
